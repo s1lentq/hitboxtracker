@@ -1,0 +1,334 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{3A8F89BA-AA33-4C31-ABF8-C6FF243049D2}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>server</RootNamespace>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <TargetName>hitboxtracker_mm</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <TargetName>hitboxtracker_mm</TargetName>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;USE_QSTRING;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PrecompiledHeaderFile>precompiled.h</PrecompiledHeaderFile>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\..\..\dep\hlsdk\common;$(ProjectDir)..\..\..\dep\hlsdk\dlls;$(ProjectDir)..\..\..\dep\hlsdk\engine;$(ProjectDir)..\..\..\dep\hlsdk\game_shared;$(ProjectDir)..\..\..\dep\hlsdk\pm_shared;$(ProjectDir)..\..\..\dep\hlsdk\public;$(ProjectDir)..\..\..\dep\metamod;$(ProjectDir)..\..\..\dep;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <ModuleDefinitionFile>server.def</ModuleDefinitionFile>
+      <AdditionalDependencies>psapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <PostBuildEvent>
+      <Command>IF EXIST "$(ProjectDir)PostBuild.bat" (CALL "$(ProjectDir)PostBuild.bat" "$(TargetDir)" "$(TargetName)" "$(TargetExt)" "$(ProjectDir)")</Command>
+    </PostBuildEvent>
+    <CustomBuildStep>
+      <Command>echo Empty Action</Command>
+      <Outputs>build.always.run</Outputs>
+      <Inputs>build.always.run</Inputs>
+      <Message>Force build to run Pre-Build event</Message>
+    </CustomBuildStep>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;USE_QSTRING;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PrecompiledHeaderFile>precompiled.h</PrecompiledHeaderFile>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\..\..\dep\hlsdk\common;$(ProjectDir)..\..\..\dep\hlsdk\dlls;$(ProjectDir)..\..\..\dep\hlsdk\engine;$(ProjectDir)..\..\..\dep\hlsdk\game_shared;$(ProjectDir)..\..\..\dep\hlsdk\pm_shared;$(ProjectDir)..\..\..\dep\hlsdk\public;$(ProjectDir)..\..\..\dep\metamod;$(ProjectDir)..\..\..\dep;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>psapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <ModuleDefinitionFile>server.def</ModuleDefinitionFile>
+    </Link>
+    <PostBuildEvent>
+      <Command>IF EXIST "$(ProjectDir)PostBuild.bat" (CALL "$(ProjectDir)PostBuild.bat" "$(TargetDir)" "$(TargetName)" "$(TargetExt)" "$(ProjectDir)")</Command>
+    </PostBuildEvent>
+    <CustomBuildStep>
+      <Command>echo Empty Action</Command>
+      <Outputs>build.always.run</Outputs>
+      <Inputs>build.always.run</Inputs>
+      <Message>Force build to run Pre-Build event</Message>
+    </CustomBuildStep>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\dep\hlsdk\common\parsemsg.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\dep\hlsdk\engine\common.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\dep\hlsdk\engine\crc32c.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\dep\hlsdk\engine\sys_shared.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\dep\hlsdk\public\interface.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\dep\hlsdk\public\registry.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\dep\hlsdk\public\steamid.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\dep\hlsdk\public\utlbuffer.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\src\dllapi.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">precompiled.h</PrecompiledHeaderFile>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Use</PrecompiledHeader>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">precompiled.h</PrecompiledHeaderFile>
+    </ClCompile>
+    <ClCompile Include="..\src\h_export.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">precompiled.h</PrecompiledHeaderFile>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Use</PrecompiledHeader>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">precompiled.h</PrecompiledHeaderFile>
+    </ClCompile>
+    <ClCompile Include="..\src\meta_api.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">precompiled.h</PrecompiledHeaderFile>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Use</PrecompiledHeader>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">precompiled.h</PrecompiledHeaderFile>
+    </ClCompile>
+    <ClCompile Include="..\src\precompiled.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">precompiled.h</PrecompiledHeaderFile>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">precompiled.h</PrecompiledHeaderFile>
+    </ClCompile>
+    <ClCompile Include="..\src\main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\dep\hlsdk\common\beamdef.h" />
+    <ClInclude Include="..\..\..\dep\hlsdk\common\cl_entity.h" />
+    <ClInclude Include="..\..\..\dep\hlsdk\common\com_model.h" />
+    <ClInclude Include="..\..\..\dep\hlsdk\common\const.h" />
+    <ClInclude Include="..\..\..\dep\hlsdk\common\con_nprint.h" />
+    <ClInclude Include="..\..\..\dep\hlsdk\common\crc.h" />
+    <ClInclude Include="..\..\..\dep\hlsdk\common\cvardef.h" />
+    <ClInclude Include="..\..\..\dep\hlsdk\common\demo_api.h" />
+    <ClInclude Include="..\..\..\dep\hlsdk\common\director_cmds.h" />
+    <ClInclude Include="..\..\..\dep\hlsdk\common\dlight.h" />
+    <ClInclude Include="..\..\..\dep\hlsdk\common\dll_state.h" />
+    <ClInclude Include="..\..\..\dep\hlsdk\common\engine_launcher_api.h" />
+    <ClInclude Include="..\..\..\dep\hlsdk\common\entity_state.h" />
+    <ClInclude Include="..\..\..\dep\hlsdk\common\entity_types.h" />
+    <ClInclude Include="..\..\..\dep\hlsdk\common\enums.h" />
+    <ClInclude Include="..\..\..\dep\hlsdk\common\event_api.h" />
+    <ClInclude Include="..\..\..\dep\hlsdk\common\event_args.h" />
+    <ClInclude Include="..\..\..\dep\hlsdk\common\event_flags.h" />
+    <ClInclude Include="..\..\..\dep\hlsdk\common\exefuncs.h" />
+    <ClInclude Include="..\..\..\dep\hlsdk\common\hltv.h" />
+    <ClInclude Include="..\..\..\dep\hlsdk\common\in_buttons.h" />
+    <ClInclude Include="..\..\..\dep\hlsdk\common\itrackeruser.h" />
+    <ClInclude Include="..\..\..\dep\hlsdk\common\ivoicetweak.h" />
+    <ClInclude Include="..\..\..\dep\hlsdk\common\kbutton.h" />
+    <ClInclude Include="..\..\..\dep\hlsdk\common\mathlib.h" />
+    <ClInclude Include="..\..\..\dep\hlsdk\common\netadr.h" />
+    <ClInclude Include="..\..\..\dep\hlsdk\common\net_api.h" />
+    <ClInclude Include="..\..\..\dep\hlsdk\common\nowin.h" />
+    <ClInclude Include="..\..\..\dep\hlsdk\common\parsemsg.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\hlsdk\common\particledef.h" />
+    <ClInclude Include="..\..\..\dep\hlsdk\common\pmtrace.h" />
+    <ClInclude Include="..\..\..\dep\hlsdk\common\qfont.h" />
+    <ClInclude Include="..\..\..\dep\hlsdk\common\quakedef.h" />
+    <ClInclude Include="..\..\..\dep\hlsdk\common\ref_params.h" />
+    <ClInclude Include="..\..\..\dep\hlsdk\common\r_efx.h" />
+    <ClInclude Include="..\..\..\dep\hlsdk\common\r_studioint.h" />
+    <ClInclude Include="..\..\..\dep\hlsdk\common\screenfade.h" />
+    <ClInclude Include="..\..\..\dep\hlsdk\common\Sequence.h" />
+    <ClInclude Include="..\..\..\dep\hlsdk\common\studio_event.h" />
+    <ClInclude Include="..\..\..\dep\hlsdk\common\triangleapi.h" />
+    <ClInclude Include="..\..\..\dep\hlsdk\common\usercmd.h" />
+    <ClInclude Include="..\..\..\dep\hlsdk\common\weaponinfo.h" />
+    <ClInclude Include="..\..\..\dep\hlsdk\dlls\activity.h" />
+    <ClInclude Include="..\..\..\dep\hlsdk\dlls\ehandle.h" />
+    <ClInclude Include="..\..\..\dep\hlsdk\dlls\enginecallback.h" />
+    <ClInclude Include="..\..\..\dep\hlsdk\dlls\extdef.h" />
+    <ClInclude Include="..\..\..\dep\hlsdk\dlls\extdll.h" />
+    <ClInclude Include="..\..\..\dep\hlsdk\dlls\qstring.h" />
+    <ClInclude Include="..\..\..\dep\hlsdk\dlls\util.h" />
+    <ClInclude Include="..\..\..\dep\hlsdk\dlls\vector.h" />
+    <ClInclude Include="..\..\..\dep\hlsdk\engine\APIProxy.h" />
+    <ClInclude Include="..\..\..\dep\hlsdk\engine\archtypes.h" />
+    <ClInclude Include="..\..\..\dep\hlsdk\engine\bspfile.h" />
+    <ClInclude Include="..\..\..\dep\hlsdk\engine\cdll_int.h" />
+    <ClInclude Include="..\..\..\dep\hlsdk\engine\client.h" />
+    <ClInclude Include="..\..\..\dep\hlsdk\engine\cmd.h" />
+    <ClInclude Include="..\..\..\dep\hlsdk\engine\common.h" />
+    <ClInclude Include="..\..\..\dep\hlsdk\engine\consistency.h" />
+    <ClInclude Include="..\..\..\dep\hlsdk\engine\crc32c.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\hlsdk\engine\custom.h" />
+    <ClInclude Include="..\..\..\dep\hlsdk\engine\customentity.h" />
+    <ClInclude Include="..\..\..\dep\hlsdk\engine\delta_packet.h" />
+    <ClInclude Include="..\..\..\dep\hlsdk\engine\d_local.h" />
+    <ClInclude Include="..\..\..\dep\hlsdk\engine\edict.h" />
+    <ClInclude Include="..\..\..\dep\hlsdk\engine\eiface.h" />
+    <ClInclude Include="..\..\..\dep\hlsdk\engine\event.h" />
+    <ClInclude Include="..\..\..\dep\hlsdk\engine\FlightRecorder.h" />
+    <ClInclude Include="..\..\..\dep\hlsdk\engine\hookchains.h" />
+    <ClInclude Include="..\..\..\dep\hlsdk\engine\info.h" />
+    <ClInclude Include="..\..\..\dep\hlsdk\engine\inst_baseline.h" />
+    <ClInclude Include="..\..\..\dep\hlsdk\engine\keydefs.h" />
+    <ClInclude Include="..\..\..\dep\hlsdk\engine\keys.h" />
+    <ClInclude Include="..\..\..\dep\hlsdk\engine\maintypes.h" />
+    <ClInclude Include="..\..\..\dep\hlsdk\engine\model.h" />
+    <ClInclude Include="..\..\..\dep\hlsdk\engine\modelgen.h" />
+    <ClInclude Include="..\..\..\dep\hlsdk\engine\net.h" />
+    <ClInclude Include="..\..\..\dep\hlsdk\engine\osconfig.h" />
+    <ClInclude Include="..\..\..\dep\hlsdk\engine\progdefs.h" />
+    <ClInclude Include="..\..\..\dep\hlsdk\engine\progs.h" />
+    <ClInclude Include="..\..\..\dep\hlsdk\engine\pr_dlls.h" />
+    <ClInclude Include="..\..\..\dep\hlsdk\engine\Sequence.h" />
+    <ClInclude Include="..\..\..\dep\hlsdk\engine\server.h" />
+    <ClInclude Include="..\..\..\dep\hlsdk\engine\shake.h" />
+    <ClInclude Include="..\..\..\dep\hlsdk\engine\sound.h" />
+    <ClInclude Include="..\..\..\dep\hlsdk\engine\spritegn.h" />
+    <ClInclude Include="..\..\..\dep\hlsdk\engine\static_map.h" />
+    <ClInclude Include="..\..\..\dep\hlsdk\engine\studio.h" />
+    <ClInclude Include="..\..\..\dep\hlsdk\engine\sys_shared.h" />
+    <ClInclude Include="..\..\..\dep\hlsdk\engine\userid.h" />
+    <ClInclude Include="..\..\..\dep\hlsdk\engine\usermsg.h" />
+    <ClInclude Include="..\..\..\dep\hlsdk\game_shared\bitvec.h" />
+    <ClInclude Include="..\..\..\dep\hlsdk\game_shared\bot\bot.h" />
+    <ClInclude Include="..\..\..\dep\hlsdk\game_shared\bot\bot_constants.h" />
+    <ClInclude Include="..\..\..\dep\hlsdk\game_shared\bot\bot_manager.h" />
+    <ClInclude Include="..\..\..\dep\hlsdk\game_shared\bot\bot_profile.h" />
+    <ClInclude Include="..\..\..\dep\hlsdk\game_shared\bot\bot_util.h" />
+    <ClInclude Include="..\..\..\dep\hlsdk\game_shared\bot\improv.h" />
+    <ClInclude Include="..\..\..\dep\hlsdk\game_shared\bot\nav.h" />
+    <ClInclude Include="..\..\..\dep\hlsdk\game_shared\bot\nav_area.h" />
+    <ClInclude Include="..\..\..\dep\hlsdk\game_shared\bot\nav_node.h" />
+    <ClInclude Include="..\..\..\dep\hlsdk\game_shared\bot\nav_path.h" />
+    <ClInclude Include="..\..\..\dep\hlsdk\game_shared\bot\simple_state_machine.h" />
+    <ClInclude Include="..\..\..\dep\hlsdk\game_shared\counter.h" />
+    <ClInclude Include="..\..\..\dep\hlsdk\game_shared\GameEvent.h" />
+    <ClInclude Include="..\..\..\dep\hlsdk\game_shared\shared_util.h" />
+    <ClInclude Include="..\..\..\dep\hlsdk\game_shared\simple_checksum.h" />
+    <ClInclude Include="..\..\..\dep\hlsdk\game_shared\steam_util.h" />
+    <ClInclude Include="..\..\..\dep\hlsdk\game_shared\voice_common.h" />
+    <ClInclude Include="..\..\..\dep\hlsdk\game_shared\voice_gamemgr.h" />
+    <ClInclude Include="..\..\..\dep\hlsdk\pm_shared\pm_debug.h" />
+    <ClInclude Include="..\..\..\dep\hlsdk\pm_shared\pm_defs.h" />
+    <ClInclude Include="..\..\..\dep\hlsdk\pm_shared\pm_info.h" />
+    <ClInclude Include="..\..\..\dep\hlsdk\pm_shared\pm_materials.h" />
+    <ClInclude Include="..\..\..\dep\hlsdk\pm_shared\pm_movevars.h" />
+    <ClInclude Include="..\..\..\dep\hlsdk\pm_shared\pm_shared.h" />
+    <ClInclude Include="..\..\..\dep\hlsdk\public\asmlib.h" />
+    <ClInclude Include="..\..\..\dep\hlsdk\public\basetypes.h" />
+    <ClInclude Include="..\..\..\dep\hlsdk\public\commonmacros.h" />
+    <ClInclude Include="..\..\..\dep\hlsdk\public\engine_hlds_api.h" />
+    <ClInclude Include="..\..\..\dep\hlsdk\public\engine_launcher_api.h" />
+    <ClInclude Include="..\..\..\dep\hlsdk\public\FileSystem.h" />
+    <ClInclude Include="..\..\..\dep\hlsdk\public\icommandline.h" />
+    <ClInclude Include="..\..\..\dep\hlsdk\public\idedicatedexports.h" />
+    <ClInclude Include="..\..\..\dep\hlsdk\public\interface.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\hlsdk\public\iregistry.h" />
+    <ClInclude Include="..\..\..\dep\hlsdk\public\keydefs.h" />
+    <ClInclude Include="..\..\..\dep\hlsdk\public\particleman.h" />
+    <ClInclude Include="..\..\..\dep\hlsdk\public\pman_particlemem.h" />
+    <ClInclude Include="..\..\..\dep\hlsdk\public\pman_triangleffect.h" />
+    <ClInclude Include="..\..\..\dep\hlsdk\public\savegame_version.h" />
+    <ClInclude Include="..\..\..\dep\hlsdk\public\strtools.h" />
+    <ClInclude Include="..\..\..\dep\hlsdk\public\utlbuffer.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\hlsdk\public\utllinkedlist.h" />
+    <ClInclude Include="..\..\..\dep\hlsdk\public\utlmap.h" />
+    <ClInclude Include="..\..\..\dep\hlsdk\public\utlmemory.h" />
+    <ClInclude Include="..\..\..\dep\hlsdk\public\utlrbtree.h" />
+    <ClInclude Include="..\..\..\dep\hlsdk\public\utlvector.h" />
+    <ClInclude Include="..\..\..\dep\metamod\dllapi.h" />
+    <ClInclude Include="..\..\..\dep\metamod\enginecallbacks.h" />
+    <ClInclude Include="..\..\..\dep\metamod\engine_api.h" />
+    <ClInclude Include="..\..\..\dep\metamod\h_export.h" />
+    <ClInclude Include="..\..\..\dep\metamod\meta_api.h" />
+    <ClInclude Include="..\..\..\dep\metamod\mutil.h" />
+    <ClInclude Include="..\..\..\dep\metamod\plinfo.h" />
+    <ClInclude Include="..\src\precompiled.h" />
+    <ClInclude Include="..\src\main.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="server.def" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

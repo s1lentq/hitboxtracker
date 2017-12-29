@@ -1,0 +1,519 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="src">
+      <UniqueIdentifier>{1572150b-28fe-42a8-8420-3c642ef04d06}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="hlsdk">
+      <UniqueIdentifier>{72e8eef1-f0da-438a-8ff7-b0d9b59cdee5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="metamod">
+      <UniqueIdentifier>{0b883166-2fca-4f13-9b08-ea02ab968aa6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="hlsdk\common">
+      <UniqueIdentifier>{c4daba54-6270-42fd-9a16-ae7de7512823}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="hlsdk\engine">
+      <UniqueIdentifier>{5afa6150-5113-431c-9548-df0fdb3ce205}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="hlsdk\dlls">
+      <UniqueIdentifier>{87436033-5a0c-4dea-a224-7c69a0eb7282}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="hlsdk\pm_shared">
+      <UniqueIdentifier>{77eb27a0-64a3-4be5-b2ec-2d0538c41c23}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="hlsdk\game_shared">
+      <UniqueIdentifier>{4193f746-d784-4acc-b3f5-7d5c45964294}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="hlsdk\public">
+      <UniqueIdentifier>{823a9c6f-59ef-4694-8ba6-d96bbcf3c1e6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="hlsdk\game_shared\bot">
+      <UniqueIdentifier>{34edf5f5-a612-49e9-a360-aef9409d9395}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\src\dllapi.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\h_export.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\meta_api.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\precompiled.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\dep\hlsdk\common\parsemsg.cpp">
+      <Filter>hlsdk\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\dep\hlsdk\public\registry.cpp">
+      <Filter>hlsdk\public</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\dep\hlsdk\public\steamid.cpp">
+      <Filter>hlsdk\public</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\dep\hlsdk\public\utlbuffer.cpp">
+      <Filter>hlsdk\public</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\dep\hlsdk\public\interface.cpp">
+      <Filter>hlsdk\public</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\main.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\dep\hlsdk\engine\common.cpp">
+      <Filter>hlsdk\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\dep\hlsdk\engine\crc32c.cpp">
+      <Filter>hlsdk\engine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\dep\hlsdk\engine\sys_shared.cpp">
+      <Filter>hlsdk\engine</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\src\precompiled.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\metamod\dllapi.h">
+      <Filter>metamod</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\metamod\engine_api.h">
+      <Filter>metamod</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\metamod\enginecallbacks.h">
+      <Filter>metamod</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\metamod\h_export.h">
+      <Filter>metamod</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\metamod\meta_api.h">
+      <Filter>metamod</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\metamod\mutil.h">
+      <Filter>metamod</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\metamod\plinfo.h">
+      <Filter>metamod</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\hlsdk\dlls\enginecallback.h">
+      <Filter>hlsdk\dlls</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\hlsdk\dlls\extdef.h">
+      <Filter>hlsdk\dlls</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\hlsdk\dlls\extdll.h">
+      <Filter>hlsdk\dlls</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\hlsdk\dlls\qstring.h">
+      <Filter>hlsdk\dlls</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\hlsdk\dlls\util.h">
+      <Filter>hlsdk\dlls</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\hlsdk\dlls\vector.h">
+      <Filter>hlsdk\dlls</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\hlsdk\common\beamdef.h">
+      <Filter>hlsdk\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\hlsdk\common\cl_entity.h">
+      <Filter>hlsdk\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\hlsdk\common\com_model.h">
+      <Filter>hlsdk\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\hlsdk\common\con_nprint.h">
+      <Filter>hlsdk\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\hlsdk\common\const.h">
+      <Filter>hlsdk\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\hlsdk\common\crc.h">
+      <Filter>hlsdk\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\hlsdk\common\cvardef.h">
+      <Filter>hlsdk\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\hlsdk\common\demo_api.h">
+      <Filter>hlsdk\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\hlsdk\common\director_cmds.h">
+      <Filter>hlsdk\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\hlsdk\common\dlight.h">
+      <Filter>hlsdk\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\hlsdk\common\dll_state.h">
+      <Filter>hlsdk\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\hlsdk\common\engine_launcher_api.h">
+      <Filter>hlsdk\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\hlsdk\common\entity_state.h">
+      <Filter>hlsdk\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\hlsdk\common\entity_types.h">
+      <Filter>hlsdk\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\hlsdk\common\enums.h">
+      <Filter>hlsdk\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\hlsdk\common\event_api.h">
+      <Filter>hlsdk\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\hlsdk\common\event_args.h">
+      <Filter>hlsdk\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\hlsdk\common\event_flags.h">
+      <Filter>hlsdk\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\hlsdk\common\exefuncs.h">
+      <Filter>hlsdk\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\hlsdk\common\hltv.h">
+      <Filter>hlsdk\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\hlsdk\common\in_buttons.h">
+      <Filter>hlsdk\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\hlsdk\common\itrackeruser.h">
+      <Filter>hlsdk\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\hlsdk\common\ivoicetweak.h">
+      <Filter>hlsdk\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\hlsdk\common\kbutton.h">
+      <Filter>hlsdk\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\hlsdk\common\mathlib.h">
+      <Filter>hlsdk\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\hlsdk\common\net_api.h">
+      <Filter>hlsdk\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\hlsdk\common\netadr.h">
+      <Filter>hlsdk\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\hlsdk\common\nowin.h">
+      <Filter>hlsdk\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\hlsdk\common\parsemsg.h">
+      <Filter>hlsdk\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\hlsdk\common\particledef.h">
+      <Filter>hlsdk\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\hlsdk\common\pmtrace.h">
+      <Filter>hlsdk\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\hlsdk\common\qfont.h">
+      <Filter>hlsdk\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\hlsdk\common\quakedef.h">
+      <Filter>hlsdk\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\hlsdk\common\r_efx.h">
+      <Filter>hlsdk\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\hlsdk\common\r_studioint.h">
+      <Filter>hlsdk\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\hlsdk\common\ref_params.h">
+      <Filter>hlsdk\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\hlsdk\common\screenfade.h">
+      <Filter>hlsdk\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\hlsdk\common\Sequence.h">
+      <Filter>hlsdk\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\hlsdk\common\studio_event.h">
+      <Filter>hlsdk\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\hlsdk\common\triangleapi.h">
+      <Filter>hlsdk\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\hlsdk\common\usercmd.h">
+      <Filter>hlsdk\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\hlsdk\common\weaponinfo.h">
+      <Filter>hlsdk\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\hlsdk\dlls\activity.h">
+      <Filter>hlsdk\dlls</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\hlsdk\dlls\ehandle.h">
+      <Filter>hlsdk\dlls</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\hlsdk\game_shared\bitvec.h">
+      <Filter>hlsdk\game_shared</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\hlsdk\game_shared\counter.h">
+      <Filter>hlsdk\game_shared</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\hlsdk\game_shared\GameEvent.h">
+      <Filter>hlsdk\game_shared</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\hlsdk\game_shared\shared_util.h">
+      <Filter>hlsdk\game_shared</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\hlsdk\game_shared\simple_checksum.h">
+      <Filter>hlsdk\game_shared</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\hlsdk\game_shared\steam_util.h">
+      <Filter>hlsdk\game_shared</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\hlsdk\game_shared\voice_common.h">
+      <Filter>hlsdk\game_shared</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\hlsdk\game_shared\voice_gamemgr.h">
+      <Filter>hlsdk\game_shared</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\hlsdk\game_shared\bot\bot.h">
+      <Filter>hlsdk\game_shared\bot</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\hlsdk\game_shared\bot\bot_constants.h">
+      <Filter>hlsdk\game_shared\bot</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\hlsdk\game_shared\bot\bot_manager.h">
+      <Filter>hlsdk\game_shared\bot</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\hlsdk\game_shared\bot\bot_profile.h">
+      <Filter>hlsdk\game_shared\bot</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\hlsdk\game_shared\bot\bot_util.h">
+      <Filter>hlsdk\game_shared\bot</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\hlsdk\game_shared\bot\improv.h">
+      <Filter>hlsdk\game_shared\bot</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\hlsdk\game_shared\bot\nav.h">
+      <Filter>hlsdk\game_shared\bot</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\hlsdk\game_shared\bot\nav_area.h">
+      <Filter>hlsdk\game_shared\bot</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\hlsdk\game_shared\bot\nav_node.h">
+      <Filter>hlsdk\game_shared\bot</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\hlsdk\game_shared\bot\nav_path.h">
+      <Filter>hlsdk\game_shared\bot</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\hlsdk\game_shared\bot\simple_state_machine.h">
+      <Filter>hlsdk\game_shared\bot</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\hlsdk\public\asmlib.h">
+      <Filter>hlsdk\public</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\hlsdk\public\basetypes.h">
+      <Filter>hlsdk\public</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\hlsdk\public\commonmacros.h">
+      <Filter>hlsdk\public</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\hlsdk\public\engine_hlds_api.h">
+      <Filter>hlsdk\public</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\hlsdk\public\engine_launcher_api.h">
+      <Filter>hlsdk\public</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\hlsdk\public\FileSystem.h">
+      <Filter>hlsdk\public</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\hlsdk\public\icommandline.h">
+      <Filter>hlsdk\public</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\hlsdk\public\idedicatedexports.h">
+      <Filter>hlsdk\public</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\hlsdk\public\iregistry.h">
+      <Filter>hlsdk\public</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\hlsdk\public\keydefs.h">
+      <Filter>hlsdk\public</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\hlsdk\public\particleman.h">
+      <Filter>hlsdk\public</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\hlsdk\public\pman_particlemem.h">
+      <Filter>hlsdk\public</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\hlsdk\public\pman_triangleffect.h">
+      <Filter>hlsdk\public</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\hlsdk\public\savegame_version.h">
+      <Filter>hlsdk\public</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\hlsdk\public\strtools.h">
+      <Filter>hlsdk\public</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\hlsdk\public\utlbuffer.h">
+      <Filter>hlsdk\public</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\hlsdk\public\utllinkedlist.h">
+      <Filter>hlsdk\public</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\hlsdk\public\utlmap.h">
+      <Filter>hlsdk\public</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\hlsdk\public\utlmemory.h">
+      <Filter>hlsdk\public</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\hlsdk\public\utlrbtree.h">
+      <Filter>hlsdk\public</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\hlsdk\public\utlvector.h">
+      <Filter>hlsdk\public</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\hlsdk\pm_shared\pm_debug.h">
+      <Filter>hlsdk\pm_shared</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\hlsdk\pm_shared\pm_defs.h">
+      <Filter>hlsdk\pm_shared</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\hlsdk\pm_shared\pm_info.h">
+      <Filter>hlsdk\pm_shared</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\hlsdk\pm_shared\pm_materials.h">
+      <Filter>hlsdk\pm_shared</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\hlsdk\pm_shared\pm_movevars.h">
+      <Filter>hlsdk\pm_shared</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\hlsdk\pm_shared\pm_shared.h">
+      <Filter>hlsdk\pm_shared</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\hlsdk\public\interface.h">
+      <Filter>hlsdk\public</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\main.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\hlsdk\engine\APIProxy.h">
+      <Filter>hlsdk\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\hlsdk\engine\archtypes.h">
+      <Filter>hlsdk\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\hlsdk\engine\bspfile.h">
+      <Filter>hlsdk\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\hlsdk\engine\cdll_int.h">
+      <Filter>hlsdk\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\hlsdk\engine\client.h">
+      <Filter>hlsdk\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\hlsdk\engine\cmd.h">
+      <Filter>hlsdk\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\hlsdk\engine\common.h">
+      <Filter>hlsdk\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\hlsdk\engine\consistency.h">
+      <Filter>hlsdk\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\hlsdk\engine\crc32c.h">
+      <Filter>hlsdk\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\hlsdk\engine\custom.h">
+      <Filter>hlsdk\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\hlsdk\engine\customentity.h">
+      <Filter>hlsdk\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\hlsdk\engine\d_local.h">
+      <Filter>hlsdk\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\hlsdk\engine\delta_packet.h">
+      <Filter>hlsdk\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\hlsdk\engine\edict.h">
+      <Filter>hlsdk\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\hlsdk\engine\eiface.h">
+      <Filter>hlsdk\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\hlsdk\engine\event.h">
+      <Filter>hlsdk\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\hlsdk\engine\FlightRecorder.h">
+      <Filter>hlsdk\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\hlsdk\engine\hookchains.h">
+      <Filter>hlsdk\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\hlsdk\engine\info.h">
+      <Filter>hlsdk\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\hlsdk\engine\inst_baseline.h">
+      <Filter>hlsdk\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\hlsdk\engine\keydefs.h">
+      <Filter>hlsdk\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\hlsdk\engine\keys.h">
+      <Filter>hlsdk\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\hlsdk\engine\maintypes.h">
+      <Filter>hlsdk\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\hlsdk\engine\model.h">
+      <Filter>hlsdk\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\hlsdk\engine\modelgen.h">
+      <Filter>hlsdk\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\hlsdk\engine\net.h">
+      <Filter>hlsdk\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\hlsdk\engine\osconfig.h">
+      <Filter>hlsdk\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\hlsdk\engine\pr_dlls.h">
+      <Filter>hlsdk\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\hlsdk\engine\progdefs.h">
+      <Filter>hlsdk\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\hlsdk\engine\progs.h">
+      <Filter>hlsdk\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\hlsdk\engine\Sequence.h">
+      <Filter>hlsdk\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\hlsdk\engine\server.h">
+      <Filter>hlsdk\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\hlsdk\engine\shake.h">
+      <Filter>hlsdk\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\hlsdk\engine\sound.h">
+      <Filter>hlsdk\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\hlsdk\engine\spritegn.h">
+      <Filter>hlsdk\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\hlsdk\engine\static_map.h">
+      <Filter>hlsdk\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\hlsdk\engine\studio.h">
+      <Filter>hlsdk\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\hlsdk\engine\sys_shared.h">
+      <Filter>hlsdk\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\hlsdk\engine\userid.h">
+      <Filter>hlsdk\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\dep\hlsdk\engine\usermsg.h">
+      <Filter>hlsdk\engine</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="server.def" />
+  </ItemGroup>
+</Project>

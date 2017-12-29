@@ -1,32 +1,18 @@
-# Prerequisites
-*.d
-
-# Compiled Object files
-*.slo
-*.lo
-*.o
-*.obj
-
-# Precompiled Headers
-*.gch
-*.pch
-
-# Compiled Dynamic libraries
-*.so
-*.dylib
-*.dll
-
-# Fortran module files
-*.mod
-*.smod
-
-# Compiled Static libraries
-*.lai
-*.la
-*.a
-*.lib
-
-# Executables
-*.exe
-*.out
-*.app
+*.bat
+*.log
+*.lnk
+**/msvc/Debug*
+**/msvc/Release*
+**/msvc/Tests
+**/msvc/*.sdf
+**/msvc/*.opensdf
+**/msvc/*.user
+**/msvc/*.suo
+**/msvc/*.db
+**/msvc/*.opendb
+**/msvc/*.txt
+**/msvc/*.amplxeproj
+**/msvc/.vs
+**/msvc/ipch
+**/msvc/PublishPath*.ini
+publish
