@@ -42,11 +42,15 @@ Dev-tool that demonstrates on client-side true position of the hitboxes calculat
 			<td align="left">Individual box for player and weapon</td>
 		</tr>
 		<tr>
-			<td>6</td>
-			<td align="left">Same as 4 but draws true position of the hitboxes calculated by server :new:</td>
+			<td>6 :heavy_plus_sign:</td>
+			<td align="left">Same as 4 but draws true position of the hitboxes calculated by server</td>
+		</tr>
+		<tr>
+			<td>7 :heavy_plus_sign:</td>
+			<td align="left">Same as 6 but draws not translucent</td>
 		</tr>
 	</tbody>
 </table>
 
 # Preview
-![r_drawentities-preview](https://user-images.githubusercontent.com/5860435/34445881-52d2096a-ed09-11e7-90ad-78cfb38f3f40.gif)
+![r_drawentities-preview](https://user-images.githubusercontent.com/5860435/34494838-d659c868-f024-11e7-9582-bac8aa62e568.gif)
