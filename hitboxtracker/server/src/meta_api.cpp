@@ -41,7 +41,7 @@
 plugin_info_t Plugin_info = {
 	META_INTERFACE_VERSION,	// ifvers
 	"HitboxTracker",		// name
-	"1.0",					// version
+	"1.1",					// version
 	__DATE__,				// date
 	"s1lent",				// author
 	"https://github.com/s1lentq/hitboxtracker",						// url

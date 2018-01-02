@@ -2,7 +2,7 @@
 Dev-tool that demonstrates on client-side true position of the hitboxes calculated by server
 
 # Installation
-* Install `hitboxtracker_mm.dll` on your HLDS as metamod plugin and put `delta.lst` to gamedir directory `cstrike/delta.lst`
+* Install `hitboxtracker_mm.dll` on your HLDS as metamod plugin
 * Put `hitboxtracker.dll` and `cs.exe` to working directory of the game CS 1.6 client
 * Run `cs.exe`
 
