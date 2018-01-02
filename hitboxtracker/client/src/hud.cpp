@@ -40,6 +40,7 @@ cvar_t *cl_minmodels;
 cvar_t *default_fov;
 cvar_t *sensitivity;
 
+server_sync_t       sv;
 player_sync_t       g_PlayerSyncInfo [MAX_PLAYERS + 1];
 extra_player_info_t g_PlayerExtraInfo[MAX_PLAYERS + 1];	// additional player info sent directly to the client dll
 

@@ -157,7 +157,7 @@ void AngleQuaternion(float *angles, vec4_t quaternion)
 void QuaternionSlerp(vec4_t p, vec4_t q, float t, vec4_t qt)
 {
 	int i;
-	float	omega, cosom, sinom, sclp, sclq;
+	float omega, cosom, sinom, sclp, sclq;
 
 	// decide if one of the quaternions is backwards
 	float a = 0;
@@ -168,6 +168,7 @@ void QuaternionSlerp(vec4_t p, vec4_t q, float t, vec4_t qt)
 		a += (p[i] - q[i]) * (p[i] - q[i]);
 		b += (p[i] + q[i]) * (p[i] + q[i]);
 	}
+
 	if (a > b)
 	{
 		for (i = 0; i < 4; i++)
@@ -176,7 +177,7 @@ void QuaternionSlerp(vec4_t p, vec4_t q, float t, vec4_t qt)
 		}
 	}
 
-	cosom = p[0]*q[0] + p[1]*q[1] + p[2]*q[2] + p[3]*q[3];
+	cosom = p[0] * q[0] + p[1] * q[1] + p[2] * q[2] + p[3] * q[3];
 
 	if ((1.0 + cosom) > 0.000001)
 	{
@@ -184,6 +185,7 @@ void QuaternionSlerp(vec4_t p, vec4_t q, float t, vec4_t qt)
 		{
 			omega = acos(cosom);
 			sinom = sin(omega);
+
 			sclp = sin((1.0 - t) * omega) / sinom;
 			sclq = sin(t * omega) / sinom;
 		}
@@ -201,11 +203,13 @@ void QuaternionSlerp(vec4_t p, vec4_t q, float t, vec4_t qt)
 	else
 	{
 		qt[0] = -q[1];
-		qt[1] = q[0];
+		qt[1] =  q[0];
 		qt[2] = -q[3];
-		qt[3] = q[2];
+		qt[3] =  q[2];
+
 		sclp = sin((1.0 - t) * (0.5 * M_PI));
 		sclq = sin(t * (0.5 * M_PI));
+
 		for (i = 0; i < 3; i++)
 		{
 			qt[i] = sclp * p[i] + sclq * qt[i];

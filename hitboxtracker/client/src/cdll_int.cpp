@@ -44,44 +44,104 @@ int Initialize(cl_enginefunc_t *pEnginefuncs, int iVersion)
 
 void HUD_Init()
 {
+	g_pClientfuncs->pHudFrame = HUD_Frame;
 	g_pClientfuncs->pPostRunCmd = HUD_PostRunCmd;
-	g_pClientfuncs->pProcessPlayerState = HUD_ProcessPlayerState;
 	g_pClientfuncs->pStudioInterface = HUD_GetStudioModelInterface;
+	g_pClientfuncs->pDirectorMessage = HUD_DirectorMessage;
 
 	gClientfuncs.pHudInitFunc();
 	gHUD.Init();
 }
 
-void HUD_WeaponsPostThink(local_state_t *from, local_state_t *to, usercmd_t *cmd, double time, unsigned int random_seed)
+void HUD_Frame(double time)
 {
-	int flags = from->client.iuser3;
+	net_status_t st;
+	gEngfuncs.pNetAPI->Status(&st);
 
-	g_bHoldingKnife = (from->client.m_iId == WEAPON_KNIFE);
-	g_bHoldingShield = (flags & PLAYER_HOLDING_SHIELD) != 0;
+	const auto delay = 0.5;
+	if (st.connected == 1 && st.connection_time > (delay - 0.1) && st.connection_time < delay)
+	{
+		// tell the server that i want to sync
+		gEngfuncs.pfnServerCmd("__request_sync");
+	}
+
+	gClientfuncs.pHudFrame(time);
 }
 
-void HUD_ProcessPlayerState(entity_state_t *dst, entity_state_t *src)
+union split_double_t
 {
-	// save current values of fields from server-side
-	auto &sync             = g_PlayerSyncInfo[src->number];
+	split_double_t() : d (0.0) {}
+	split_double_t(double f) : d(f) {}
 
-	sync.yaw               = src->vuser1[0];
-	sync.gaityaw           = src->vuser1[1];
-	sync.gaitframe         = src->vuser1[2];
+	double  d;
+	struct {
+		int32_t lo;
+		int32_t hi;
+	};
+};
 
-	sync.gaitmovement      = src->vuser2[0];
-	sync.gaitsequence      = src->vuser2[1];
-	sync.pitch             = src->vuser2[2];
+constexpr size_t DIRECTOR_UID = 0xabcdef00;
 
-	sync.prevgaitorigin[0] = src->maxs[0];
-	sync.prevgaitorigin[1] = src->maxs[1];
-	sync.prevgaitorigin[2] = src->maxs[2];
+void HUD_DirectorMessage(int iSize, void *pbuf)
+{
+	BEGIN_READ(pbuf, iSize);
 
-	sync.time              = src->mins[0]; // m_clTime
-	sync.oldtime           = src->mins[1]; // m_clOldTime
-	sync.frametime         = src->mins[2]; // m_clTime - m_clOldTime?
+	auto cmd = READ_BYTE();
+	if (cmd != DRC_CMD_TIMESCALE)
+	{
+		gClientfuncs.pDirectorMessage(iSize, pbuf);
+		return;
+	}
 
-	gClientfuncs.pProcessPlayerState(dst, src);
+	// make sure that this is our custom message
+	auto uid = READ_LONG();
+	if (uid != DIRECTOR_UID)
+	{
+		gClientfuncs.pDirectorMessage(iSize, pbuf);
+		return;
+	}
+
+	auto index = READ_BYTE();
+
+	// header packet
+	if (index == 0)
+	{
+		// parse time
+		split_double_t time, oldtime;
+
+		time.lo      = READ_LONG();
+		time.hi      = READ_LONG();
+
+		oldtime.lo   = READ_LONG();
+		oldtime.hi   = READ_LONG();
+
+		sv.time      = time.d;
+		sv.oldtime   = oldtime.d;
+		sv.frametime = READ_FLOAT();
+	}
+	else
+	{
+		auto &sync = g_PlayerSyncInfo[index];
+
+		// save current values of fields from server-side
+		sync.prevgaitorigin[0] = READ_FLOAT();
+		sync.prevgaitorigin[1] = READ_FLOAT();
+		sync.prevgaitorigin[2] = READ_FLOAT();
+
+		sync.yaw               = READ_FLOAT();
+		sync.pitch             = READ_FLOAT();
+
+		sync.gaityaw           = READ_FLOAT();
+		sync.gaitframe         = READ_FLOAT();
+		sync.gaitmovement      = READ_FLOAT();
+		sync.gaitsequence      = READ_LONG ();
+	}
+}
+
+void HUD_WeaponsPostThink(local_state_t *from, local_state_t *to, usercmd_t *cmd, double time, unsigned int random_seed)
+{
+	g_bHoldingKnife  = (from->client.m_iId == WEAPON_KNIFE);
+	g_bHoldingShield = (from->client.iuser3 & PLAYER_HOLDING_SHIELD) == PLAYER_HOLDING_SHIELD;
 }
 
 void R_ForceCVars(qboolean multiplayer)

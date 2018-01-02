@@ -46,14 +46,14 @@ int CStudioModelRenderer::m_boxpnt[6][4] =
 
 vec3_t CStudioModelRenderer::m_hullcolor[8] =
 {
-	{  1.0,  1.0,  1.0 },
-	{  1.0,  0.5,  0.5 },
-	{  0.5,  1.0,  0.5 },
-	{  1.0,  1.0,  0.5 },
-	{  0.5,  0.5,  1.0 },
-	{  1.0,  0.5,  1.0 },
-	{  0.5,  1.0,  1.0 },
-	{  1.0,  1.0,  1.0 },
+	{  1.0,  1.0,  1.0 }, // Shield  : White
+	{  1.0,  0.5,  0.5 }, // Head    : Light red
+	{  0.5,  1.0,  0.5 }, // Chest   : Light green
+	{  1.0,  1.0,  0.5 }, // Stomach : Light yellow
+	{  0.5,  0.5,  1.0 }, // Leftarm : Light blue
+	{  1.0,  0.5,  1.0 }, // Rightarm: Pink
+	{  0.5,  1.0,  1.0 }, // Leftleg : Aqua
+	{  1.0,  1.0,  1.0 }, // Rightleg: White
 };
 
 void CStudioModelRenderer::Init()
@@ -63,7 +63,7 @@ void CStudioModelRenderer::Init()
 	m_pCvarDeveloper    = IEngineStudio.GetCvar("developer");
 	m_pCvarDrawEntities = IEngineStudio.GetCvar("r_drawentities");
 	m_pChromeSprite     = IEngineStudio.GetChromeSprite();
-	m_pWhiteSprite      = IEngineStudio.Mod_ForName("sprites/white.spr", 1);
+	m_pWhiteSprite      = IEngineStudio.Mod_ForName("sprites/white.spr", TRUE);
 
 	IEngineStudio.GetModelCounters(&m_pStudioModelCount, &m_pModelsDrawn);
 
@@ -690,7 +690,7 @@ void CStudioModelRenderer::StudioSetupBones()
 	}
 
 	panim = StudioGetAnim(m_pRenderModel, pseqdesc);
-	StudioCalcRotations(pos, q, pseqdesc, panim, (int)f); // TODO: CHECK ME cast from float to int and to float
+	StudioCalcRotations(pos, q, pseqdesc, panim, f);
 
 	if (pseqdesc->numblends > 1)
 	{
@@ -834,9 +834,6 @@ void CStudioModelRenderer::StudioSetupBones()
 			if (IEngineStudio.IsHardware())
 			{
 				ConcatTransforms((*m_protationmatrix), bonematrix, (*m_pbonetransform)[i]);
-
-				// MatrixCopy should be faster...
-				//ConcatTransforms((*m_protationmatrix), bonematrix, (*m_plighttransform)[i]);
 				MatrixCopy((*m_pbonetransform)[i], (*m_plighttransform)[i]);
 			}
 			else
@@ -1693,7 +1690,6 @@ void CStudioModelRenderer::StudioDrawAbsBBox()
 
 	gEngfuncs.pTriAPI->Begin(TRI_QUADS);
 	gEngfuncs.pTriAPI->Color4f(0.5f, 0.5f, 1.0f, 1.0f);
-	//gEngfuncs.pTriAPI->TexCoord2f(0.0f, 0.0f);
 
 	for (j = 0; j < ARRAYSIZE(m_boxpnt); j++)
 	{
@@ -1720,22 +1716,28 @@ void CStudioModelRenderer::StudioRenderFinal_Software()
 
 	if (m_pCvarDrawEntities->value == 2)
 	{
-		//IEngineStudio.StudioDrawBones();
-		StudioDrawBones(); // IEngineStudio.StudioDrawBones();
+		/*IEngineStudio.*/StudioDrawBones();
 	}
 	else if (m_pCvarDrawEntities->value == 3)
 	{
-		StudioDrawHulls(); // IEngineStudio.StudioDrawHulls();
+		/*IEngineStudio.*/StudioDrawHulls();
 	}
 	else
 	{
 		if (m_pPlayerSync)
 		{
-			if (m_pCurrentEntity->player && m_pCvarDrawEntities->value == 6)
+			if (m_pCurrentEntity->player)
 			{
-				gEngfuncs.pTriAPI->RenderMode(kRenderTransAdd);
-				StudioDrawHulls();
-				gEngfuncs.pTriAPI->RenderMode(kRenderNormal);
+				if (m_pCvarDrawEntities->value == 6)
+				{
+					gEngfuncs.pTriAPI->RenderMode(kRenderTransAdd);
+					StudioDrawHulls();
+					gEngfuncs.pTriAPI->RenderMode(kRenderNormal);
+				}
+				else if (m_pCvarDrawEntities->value == 7)
+				{
+					StudioDrawHulls();
+				}
 			}
 		}
 		else
@@ -1752,13 +1754,13 @@ void CStudioModelRenderer::StudioRenderFinal_Software()
 	if (m_pCvarDrawEntities->value == 4)
 	{
 		gEngfuncs.pTriAPI->RenderMode(kRenderTransAdd);
-		StudioDrawHulls(); // IEngineStudio.StudioDrawHulls();
+		/*IEngineStudio.*/StudioDrawHulls();
 		gEngfuncs.pTriAPI->RenderMode(kRenderNormal);
 	}
 
 	if (m_pCvarDrawEntities->value == 5)
 	{
-		StudioDrawAbsBBox(); // IEngineStudio.StudioDrawAbsBBox();
+		/*IEngineStudio.*/StudioDrawAbsBBox();
 	}
 
 	IEngineStudio.RestoreRenderer();
@@ -1771,21 +1773,28 @@ void CStudioModelRenderer::StudioRenderFinal_Hardware()
 
 	if (m_pCvarDrawEntities->value == 2)
 	{
-		StudioDrawBones(); // IEngineStudio.StudioDrawBones();
+		/*IEngineStudio.*/StudioDrawBones();
 	}
 	else if (m_pCvarDrawEntities->value == 3)
 	{
-		StudioDrawHulls(); // IEngineStudio.StudioDrawHulls();
+		/*IEngineStudio.*/StudioDrawHulls();
 	}
 	else
 	{
 		if (m_pPlayerSync)
 		{
-			if (m_pCurrentEntity->player && m_pCvarDrawEntities->value == 6)
+			if (m_pCurrentEntity->player)
 			{
-				gEngfuncs.pTriAPI->RenderMode(kRenderTransAdd);
-				StudioDrawHulls();
-				gEngfuncs.pTriAPI->RenderMode(kRenderNormal);
+				if (m_pCvarDrawEntities->value == 6)
+				{
+					gEngfuncs.pTriAPI->RenderMode(kRenderTransAdd);
+					StudioDrawHulls();
+					gEngfuncs.pTriAPI->RenderMode(kRenderNormal);
+				}
+				else if (m_pCvarDrawEntities->value == 7)
+				{
+					StudioDrawHulls();
+				}
 			}
 		}
 		else
@@ -1811,13 +1820,13 @@ void CStudioModelRenderer::StudioRenderFinal_Hardware()
 	if (m_pCvarDrawEntities->value == 4)
 	{
 		gEngfuncs.pTriAPI->RenderMode(kRenderTransAdd);
-		StudioDrawHulls(); // IEngineStudio.StudioDrawHulls();
+		/*IEngineStudio.*/StudioDrawHulls();
 		gEngfuncs.pTriAPI->RenderMode(kRenderNormal);
 	}
 
 	if (m_pCvarDrawEntities->value == 5)
 	{
-		StudioDrawAbsBBox(); // IEngineStudio.StudioDrawAbsBBox();
+		/*IEngineStudio.*/StudioDrawAbsBBox();
 	}
 
 	IEngineStudio.RestoreRenderer();

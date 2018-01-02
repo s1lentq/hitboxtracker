@@ -28,7 +28,10 @@
 
 #pragma once
 
-#include "entity_state.h"
+#include "hltv.h"
 
-int AddToFullPack_Post(entity_state_t *state, int e, edict_t *ent, edict_t *host, int hostflags, int player, unsigned char *pSet);
+void StartFrame_Post();
+void PlayerPostThink_Post(edict_t *pEdict);
 void ServerActivate_Post(edict_t *pEdictList, int edictCount, int clientMax);
+void ClientDisconnect_Post(edict_t *pEdict);
+void ClientCommand_Post(edict_t *pEdict);

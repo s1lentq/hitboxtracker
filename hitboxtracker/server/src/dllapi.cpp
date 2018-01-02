@@ -18,16 +18,16 @@ DLL_FUNCTIONS g_DllFunctionTable_Post =
 	NULL,					// pfnRestoreGlobalState
 	NULL,					// pfnResetGlobalState
 	NULL,					// pfnClientConnect
-	NULL,					// pfnClientDisconnect
+	&ClientDisconnect_Post,					// pfnClientDisconnect
 	NULL,					// pfnClientKill
 	NULL,					// pfnClientPutInServer
-	NULL,					// pfnClientCommand
+	&ClientCommand_Post,					// pfnClientCommand
 	NULL,					// pfnClientUserInfoChanged
 	&ServerActivate_Post,					// pfnServerActivate
 	NULL,					// pfnServerDeactivate
 	NULL,					// pfnPlayerPreThink
-	NULL,					// pfnPlayerPostThink
-	NULL,					// pfnStartFrame
+	&PlayerPostThink_Post,					// pfnPlayerPostThink
+	&StartFrame_Post,					// pfnStartFrame
 	NULL,					// pfnParmsNewLevel
 	NULL,					// pfnParmsChangeLevel
 	NULL,					// pfnGetGameDescription
@@ -41,7 +41,7 @@ DLL_FUNCTIONS g_DllFunctionTable_Post =
 	NULL,					// pfnPM_FindTextureType
 	NULL,					// pfnSetupVisibility
 	NULL,					// pfnUpdateClientData
-	&AddToFullPack_Post,					// pfnAddToFullPack
+	NULL,					// pfnAddToFullPack
 	NULL,					// pfnCreateBaseline
 	NULL,					// pfnRegisterEncoders
 	NULL,					// pfnGetWeaponData

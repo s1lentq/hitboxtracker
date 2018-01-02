@@ -48,3 +48,21 @@ bool HookUserMsg(char *pszMsgName, pfnUserMsgHook pfn)
 
 	return false;
 }
+
+bool UnHookUserMsg(char *pszMsgName)
+{
+	auto pClientUserMsgs = g_pClientUserMsgs;
+	while (pClientUserMsgs)
+	{
+		if (!Q_strcmp(pClientUserMsgs->szName, pszMsgName))
+		{
+			pClientUserMsgs->pfn = g_ClientUserMsgsMap[pszMsgName];
+			g_ClientUserMsgsMap[pszMsgName] = nullptr;
+			return true;
+		}
+
+		pClientUserMsgs = pClientUserMsgs->next;
+	}
+
+	return false;
+}

@@ -97,9 +97,15 @@ bool CEngine::Init(const char *szModuleName, const char *pszFile)
 
 	m_Software = !Q_stricmp(szModuleName, ENGINE_CLIENT_SOFT_LIB) ? true : false;
 
-	if (!LoadSecureClient_Init() || !LoadInSecureClient_Init())
+	if (!LoadSecureClient_Init())
 	{
-		TraceLog("> %s: Not found ClientFuncs\n", __FUNCTION__);
+		TraceLog("> %s: Not found LoadSecureClient\n", __FUNCTION__);
+		return false;
+	}
+
+	if (!LoadInSecureClient_Init())
+	{
+		TraceLog("> %s: Not found LoadInSecureClient\n", __FUNCTION__);
 		return false;
 	}
 
@@ -229,12 +235,11 @@ bool CEngine::StudioLightingInit()
 
 void R_StudioLighting(float *lv, int bone, int flags, const vec_t *normal)
 {
-	if (!pfnR_StudioLighting) {
-		*lv = 0.75f;
-		return;
-	}
+	*lv = 0.75f;
 
-	pfnR_StudioLighting(lv, bone, flags, normal);
+	if (pfnR_StudioLighting) {
+		pfnR_StudioLighting(lv, bone, flags, normal);
+	}
 
 	if (g_EngineLib->IsSoftware()) {
 		*lv = *lv / (USHRT_MAX + 1);

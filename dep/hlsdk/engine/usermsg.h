@@ -46,6 +46,7 @@ typedef struct _UserMsg
 } UserMsg;
 
 bool HookUserMsg(char *pszMsgName, pfnUserMsgHook pfn);
+bool UnHookUserMsg(char *pszMsgName);
 
 extern UserMsg *g_pClientUserMsgs;
 extern std::map<std::string, pfnUserMsgHook> g_ClientUserMsgsMap;

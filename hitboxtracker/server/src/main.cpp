@@ -30,39 +30,145 @@
 
 server_t *sv;
 
-int AddToFullPack_Post(entity_state_t *state, int e, edict_t *ent, edict_t *host, int hostflags, int player, unsigned char *pSet)
+struct player_t
 {
-	if (ent->v.modelindex <= 0 || ent->v.modelindex >= MAX_MODELS)
+	struct player_info_t
 	{
-		RETURN_META_VALUE(MRES_IGNORED, 0);
+		bool read_packet  : 1;
+		bool request_sync : 1;
+	};
+
+	player_info_t &operator[](size_t i)             { return m_data[i - 1]; }
+	player_info_t &operator[](edict_t *pEdict)      { return m_data[ENTINDEX(pEdict) - 1]; }
+	player_info_t &operator[](CBasePlayer *pPlayer) { return m_data[pPlayer->entindex() - 1]; }
+
+	player_info_t m_data[MAX_CLIENTS];
+};
+
+player_t g_Players;
+constexpr size_t DIRECTOR_UID = 0xabcdef00;
+
+void ClientCommand_Post(edict_t *pEdict)
+{
+	const auto cmd = CMD_ARGV(0);
+	if (!Q_strcmp(cmd, "__request_sync"))
+	{
+		// want sync
+		g_Players[pEdict].request_sync = true;
 	}
 
-	// we need to call every time SV_StudioSetupBones
-	// to keep gaityaw and other synced on client-side
-	TraceResult tr;
-	TRACE_LINE(ent->v.origin - Vector(1, 1, 1), host->v.origin + Vector(1, 1, 1), 0, nullptr, &tr);
+	RETURN_META(MRES_IGNORED);
+}
 
-	CBasePlayer *plr = UTIL_PlayerByIndexSafe(e);
-	if (plr)
+void SendPlayerSyncInfo(CBasePlayer *pPlayer)
+{
+	for (int i = 1; i <= gpGlobals->maxClients; i++)
 	{
-		state->vuser1[0] = plr->m_flYaw;
-		state->vuser1[1] = plr->m_flGaityaw;
-		state->vuser1[2] = plr->m_flGaitframe;
+		auto plr = UTIL_PlayerByIndex(i);
+		if (!plr)
+			continue;
 
-		state->vuser2[0] = plr->m_flGaitMovement;
-		state->vuser2[1] = plr->m_iGaitsequence;
-		state->vuser2[2] = plr->m_flPitch;
+		if (plr->IsDormant() || plr->has_disconnected)
+			continue;
 
-		state->maxs[0] = plr->m_prevgaitorigin[0];
-		state->maxs[1] = plr->m_prevgaitorigin[0];
-		state->maxs[2] = plr->m_prevgaitorigin[0];
+		if (!plr->IsNetClient())
+			continue;
 
-		state->mins[0] = sv->time;
-		state->mins[1] = sv->oldtime;
-		state->mins[2] = gpGlobals->frametime;
+		if (g_Players[plr].request_sync)
+		{
+			MESSAGE_BEGIN(MSG_ONE, SVC_DIRECTOR, nullptr, plr->pev);
+				WRITE_BYTE(42);						// number of bytes this message
+				WRITE_BYTE(DRC_CMD_TIMESCALE);
+				WRITE_LONG(DIRECTOR_UID);			// unique message id
+				WRITE_BYTE(pPlayer->entindex());
+				WRITE_LONG(*(int *)&pPlayer->m_prevgaitorigin[0]);
+				WRITE_LONG(*(int *)&pPlayer->m_prevgaitorigin[1]);
+				WRITE_LONG(*(int *)&pPlayer->m_prevgaitorigin[2]);
+				WRITE_LONG(*(int *)&pPlayer->m_flYaw);
+				WRITE_LONG(*(int *)&pPlayer->m_flPitch);
+				WRITE_LONG(*(int *)&pPlayer->m_flGaityaw);
+				WRITE_LONG(*(int *)&pPlayer->m_flGaitframe);
+				WRITE_LONG(*(int *)&pPlayer->m_flGaitMovement);
+				WRITE_LONG(pPlayer->m_iGaitsequence);
+			MESSAGE_END();
+		}
+	}
+}
+
+void PlayerPostThink_Post(edict_t *pEdict)
+{
+	g_Players[pEdict].read_packet = true;
+	RETURN_META(MRES_IGNORED);
+}
+
+void ClientDisconnect_Post(edict_t *pEdict)
+{
+	g_Players[pEdict].read_packet  = false;
+	g_Players[pEdict].request_sync = false;
+	RETURN_META(MRES_IGNORED);
+}
+
+union split_double_t
+{
+	split_double_t() : d (0.0) {}
+	split_double_t(double f) : d(f) {}
+
+	double  d;
+	struct {
+		int32_t lo;
+		int32_t hi;
+	};
+};
+
+void StartFrame_Post()
+{
+	int count = 0;
+	CBasePlayer *plrList[MAX_CLIENTS];
+
+	for (int i = 1; i <= gpGlobals->maxClients; i++)
+	{
+		auto pPlayer = UTIL_PlayerByIndex(i);
+		if (!pPlayer)
+			continue;
+
+		if (pPlayer->IsDormant() || pPlayer->has_disconnected)
+			continue;
+
+		if (!pPlayer->IsAlive())
+			continue;
+
+		if (!g_Players[i].read_packet)
+		{
+			RETURN_META(MRES_IGNORED);
+		}
+
+		g_Players[i].read_packet = false;
+		plrList[count++] = pPlayer;
 	}
 
-	RETURN_META_VALUE(MRES_IGNORED, 0);
+	if (count > 0)
+	{
+		split_double_t time(sv->time), oldtime(sv->oldtime);
+
+		MESSAGE_BEGIN(MSG_ALL, SVC_DIRECTOR);
+			WRITE_BYTE(26);								// number of bytes this message
+			WRITE_BYTE(DRC_CMD_TIMESCALE);
+			WRITE_LONG(DIRECTOR_UID);					// unique message id
+			WRITE_BYTE(0);
+			WRITE_LONG(time.lo);
+			WRITE_LONG(time.hi);
+			WRITE_LONG(oldtime.lo);
+			WRITE_LONG(oldtime.hi);
+			WRITE_LONG(*(int *)&gpGlobals->frametime);
+		MESSAGE_END();
+
+		// 26 + (42 * count) the total number of payload bytes
+		for (int i = 0; i < count; i++) {
+			SendPlayerSyncInfo(plrList[i]);
+		}
+	}
+
+	RETURN_META(MRES_IGNORED);
 }
 
 void ServerActivate_Post(edict_t *pEdictList, int edictCount, int clientMax)

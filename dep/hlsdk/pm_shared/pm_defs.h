@@ -188,5 +188,8 @@ typedef struct playermove_s
 	void (*PM_PlaySound)(int channel, const char *sample, float volume, float attenuation, int fFlags, int pitch);
 	const char *(*PM_TraceTexture)(int ground, float *vstart, float *vend);
 	void (*PM_PlaybackEventFull)(int flags, int clientindex, unsigned short eventindex, float delay, float *origin, float *angles, float fparam1, float fparam2, int iparam1, int iparam2, int bparam1, int bparam2);
+	pmtrace_t (*PM_PlayerTraceEx)(float *start, float *end, int traceFlags, int (*pfnIgnore)(physent_t *pe));
+	int (*PM_TestPlayerPositionEx)(float *pos, pmtrace_t *ptrace, int (*pfnIgnore)(physent_t *pe));
+	struct pmtrace_s *(*PM_TraceLineEx)(float *start, float *end, int flags, int usehulll, int (*pfnIgnore)(physent_t *pe));
 
 } playermove_t;

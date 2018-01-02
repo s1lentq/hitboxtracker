@@ -37,6 +37,13 @@ enum
 	MAX_TEAM_NAME = 16,
 };
 
+struct server_sync_t
+{
+	double time;
+	double oldtime;
+	float  frametime;
+};
+
 struct player_sync_t
 {
 	float  yaw;
@@ -45,9 +52,6 @@ struct player_sync_t
 	float  gaitframe;
 	float  gaitmovement;
 	int    gaitsequence;
-	float  time;
-	float  oldtime;
-	float  frametime;
 	Vector prevgaitorigin;
 };
 
@@ -72,7 +76,8 @@ struct extra_player_info_t
 };
 
 // Macros to hook function calls into the HUD object
-#define HOOK_MESSAGE(x) HookUserMsg(#x, __MsgFunc_##x)
+#define HOOK_MESSAGE(x)   HookUserMsg(#x, __MsgFunc_##x)
+#define UNHOOK_MESSAGE(x) UnHookUserMsg(#x)
 
 #define DECLARE_MESSAGE(y, x)\
 int __MsgFunc_##x(const char *pszName, int iSize, void *pbuf)\
@@ -113,6 +118,7 @@ private:
 
 extern CHud gHUD;
 
+extern server_sync_t       sv;
 extern player_sync_t       g_PlayerSyncInfo [MAX_PLAYERS + 1];
 extern extra_player_info_t g_PlayerExtraInfo[MAX_PLAYERS + 1];
 

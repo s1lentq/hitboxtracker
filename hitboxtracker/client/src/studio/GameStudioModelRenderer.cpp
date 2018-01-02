@@ -356,8 +356,6 @@ void CGameStudioModelRenderer::StudioSetupBones()
 		&& m_pCurrentEntity->curstate.sequence != ANIM_SWIM_1
 		&& m_pCurrentEntity->curstate.sequence != ANIM_SWIM_2)
 	{
-		bool bCopy = true;
-
 		if (m_pPlayerInfo->gaitsequence >= m_pStudioHeader->numseq || m_pPlayerInfo->gaitsequence < 0)
 			m_pPlayerInfo->gaitsequence = 0;
 
@@ -366,6 +364,7 @@ void CGameStudioModelRenderer::StudioSetupBones()
 		panim = StudioGetAnim(m_pRenderModel, pseqdesc);
 		StudioCalcRotations(pos2, q2, pseqdesc, panim, m_pPlayerInfo->gaitframe);
 
+		bool bCopy = true;
 		for (int i = 0; i < m_pStudioHeader->numbones; i++)
 		{
 			if (!Q_strcmp(pbones[i].name, "Bip01 Spine"))
@@ -418,7 +417,7 @@ void CGameStudioModelRenderer::StudioEstimateGait(entity_state_t *pplayer)
 	float dt;
 	if (m_pPlayerSync)
 	{
-		dt = clamp(m_pPlayerSync->time - m_pPlayerSync->oldtime, 0.0f, 1.0f);
+		dt = clamp(sv.time - sv.oldtime, 0.0, 1.0);
 	}
 	else
 	{
@@ -513,7 +512,7 @@ void CGameStudioModelRenderer::StudioProcessGait(entity_state_t *pplayer)
 	float dt;
 	if (m_pPlayerSync)
 	{
-		dt = clamp(m_pPlayerSync->time - m_pPlayerSync->oldtime, 0.0f, 1.0f);
+		dt = clamp(sv.time - sv.oldtime, 0.0, 1.0);
 	}
 	else
 	{
@@ -732,7 +731,7 @@ void CGameStudioModelRenderer::SetupClientAnimation(entity_state_t *pplayer)
 	st->m_fSequenceLoops = ((GetSequenceFlags(pmodel, st) & STUDIO_LOOPING) != 0) ? TRUE : FALSE;
 	StudioFrameAdvance(st, fr, dt);
 
-	// gEngfuncs.Con_Printf("gs %i frame %f\n", st->gaitsequence, st->frame);
+	//gEngfuncs.Con_Printf("gs %i frame %f\n", st->gaitsequence, st->frame);
 
 	ent->angles             = st->realangles;
 	ent->curstate.angles    = st->angles;
@@ -809,7 +808,7 @@ int CGameStudioModelRenderer::StudioDrawPlayer(int flags, entity_state_t *pplaye
 
 	// Call real draw function
 	int iret = _StudioDrawPlayer(flags, pplayer);
-	if (iret && m_pCvarDrawEntities->value == 6)
+	if (iret && (m_pCvarDrawEntities->value == 6 || m_pCvarDrawEntities->value == 7))
 	{
 		m_pPlayerSync = &g_PlayerSyncInfo[pplayer->number];
 		m_pPlayerInfo = IEngineStudio.PlayerInfo(m_nPlayerIndex);
@@ -982,7 +981,6 @@ int CGameStudioModelRenderer::_StudioDrawPlayer(int flags, entity_state_t *pplay
 		if (m_pCurrentEntity->index > 0)
 		{
 			cl_entity_t *ent = gEngfuncs.GetEntityByIndex(m_pCurrentEntity->index);
-
 			Q_memcpy(ent->attachment, m_pCurrentEntity->attachment, sizeof(ent->attachment));
 		}
 	}
@@ -1157,9 +1155,9 @@ void CGameStudioModelRenderer::CalculatePitchBlend(entity_state_t *pplayer)
 
 	StudioPlayerBlend(pseqdesc, &iBlend, &m_pCurrentEntity->angles[PITCH]);
 
-	m_pCurrentEntity->latched.prevangles[PITCH] = m_pCurrentEntity->angles[PITCH];
-	m_pCurrentEntity->curstate.blending[1] = iBlend;
-	m_pCurrentEntity->latched.prevblending[1] = m_pCurrentEntity->curstate.blending[1];
+	m_pCurrentEntity->latched.prevangles[PITCH]  = m_pCurrentEntity->angles[PITCH];
+	m_pCurrentEntity->curstate.blending[1]       = iBlend;
+	m_pCurrentEntity->latched.prevblending[1]    = m_pCurrentEntity->curstate.blending[1];
 	m_pCurrentEntity->latched.prevseqblending[1] = m_pCurrentEntity->curstate.blending[1];
 }
 
