@@ -73,6 +73,9 @@ struct extra_player_info_t
 	float showhealth;
 	int health;
 	char location[32];
+	int sb_health;
+	int sb_account;
+	int has_defuse_kit;
 };
 
 // Macros to hook function calls into the HUD object

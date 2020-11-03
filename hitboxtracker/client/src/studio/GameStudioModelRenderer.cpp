@@ -874,9 +874,9 @@ int CGameStudioModelRenderer::_StudioDrawPlayer(int flags, entity_state_t *pplay
 
 	if (cl_minmodels && cl_minmodels->value)
 	{
-		if (g_PlayerExtraInfo[pplayer->number].teamnumber == TEAM_CT)
+		if (g_PlayerExtraInfo[pplayer->number].teamnumber == TEAM_TERRORIST)
 		{
-			int modelindex = (cl_min_t && IsValidCTModelIndex(cl_min_t->value)) ? cl_min_t->value : CS_LEET;
+			int modelindex = (cl_min_t && IsValidTModelIndex(cl_min_t->value)) ? cl_min_t->value : CS_LEET;
 			m_pRenderModel = gEngfuncs.CL_LoadModel(sPlayerModelFiles[modelindex], nullptr);
 		}
 		else if (g_PlayerExtraInfo[pplayer->number].teamnumber == TEAM_CT)
