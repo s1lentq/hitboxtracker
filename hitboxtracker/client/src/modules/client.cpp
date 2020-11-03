@@ -57,7 +57,7 @@ extra_player_info_t **CClient::FindPlayerExtraInfo()
 		return nullptr;
 	}
 
-	pos = find_pattern(pos, 32, "\x0F\xBF\x04\x95\x00\x00\x00\x00\xC3");
+	pos = find_pattern(pos, 64, "\x0F\xBF\x04\x2A\x2A\x2A\x2A\x2A\xC3");
 	if (!pos) {
 		return nullptr;
 	}
